@@ -10,10 +10,14 @@ import dao.Conexao;
 import dao.UsuarioDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import model.Usuario;
 import model.Produto;
@@ -47,6 +51,8 @@ public class MenuView extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldPesquisa = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtbmenu = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -63,6 +69,7 @@ public class MenuView extends javax.swing.JFrame {
         jButtonAlterarProduto = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(845, 549));
@@ -92,6 +99,26 @@ public class MenuView extends javax.swing.JFrame {
 
         jLabel7.setText("Pesquisar:");
 
+        jTextFieldPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPesquisaActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Limpar Filtro");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -100,16 +127,27 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel7)
-                .addGap(12, 12, 12)
-                .addComponent(jTextFieldPesquisa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 120, 50));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 120, 120));
 
         jtbmenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -222,16 +260,16 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonInsertProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonExcluirProduto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonAlterarProduto)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 80, 120, 370));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 120, 330));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imagens/produtos.jpg"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -249,11 +287,14 @@ public class MenuView extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, -1));
 
+        jButton1.setText("jButton1");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProdutoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextFieldProdutoActionPerformed
 
     private void jButtonInsertProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertProdutoActionPerformed
@@ -325,6 +366,41 @@ public class MenuView extends javax.swing.JFrame {
     private void jtbmenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbmenuMouseClicked
   
     }//GEN-LAST:event_jtbmenuMouseClicked
+
+    private void jTextFieldPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaActionPerformed
+
+    }//GEN-LAST:event_jTextFieldPesquisaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        DefaultTableModel val = (DefaultTableModel) jtbmenu.getModel();
+        limpaMenu();
+        
+        if (!jTextFieldPesquisa.getText().trim().equals("")) {
+            ArrayList<Produto> produtos = controller.buscarProdutos(jTextFieldPesquisa.getText().trim());
+            if (!produtos.isEmpty()) {
+                for (Produto produto : produtos) {
+                    val.addRow(new String[]{String.valueOf(produto.getId()), produto.getProduto(), String.valueOf(produto.getQuantidade()), String.valueOf(produto.getValor()), produto.getMarca()});
+                }
+            } 
+        } 
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        limpaMenu();
+        inicializaProdutos();
+    }//GEN-LAST:event_jButton3ActionPerformed
+     
+    private void limpaMenu() {
+        DefaultTableModel val = (DefaultTableModel) jtbmenu.getModel();
+            int rowCount = val.getRowCount();
+            if (rowCount == 1) {
+                val.removeRow(0);
+            } else {
+               for (int i = 0; i < rowCount; i++) {
+                    val.removeRow(0);
+                } 
+            } 
+    }
     
     private void inicializaProdutos() {
         ArrayList<Produto> produtos = this.controller.listarProdutos();
@@ -374,6 +450,9 @@ public class MenuView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonAlterarProduto;
     private javax.swing.JButton jButtonExcluirProduto;
     private javax.swing.JButton jButtonInsertProduto;

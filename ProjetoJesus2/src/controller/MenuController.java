@@ -29,7 +29,11 @@ public class MenuController {
     public ArrayList<Produto> listarProdutos() {
         return this.dao.getAll();
     }
-
+    
+    public ArrayList<Produto> buscarProdutos(String filtro) {
+        return this.dao.getAllFilteredByName(filtro);
+    }
+    
     public Produto atualizarProduto(int id, String produto, String quantidade, String valor, String marca) {
         return this.dao.update(id, produto, quantidade, valor, marca);
     }

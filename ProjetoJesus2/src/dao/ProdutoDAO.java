@@ -100,6 +100,28 @@ public class ProdutoDAO {
         }
     }
     
+    public ArrayList<Produto> getAllFilteredByName(String filtro) {
+        String sql = "SELECT * FROM produto WHERE produto.produto LIKE ?;";
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        ArrayList<Produto> produtos = new ArrayList<>();
+        
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, "%" + filtro + "%");
+            rs = statement.executeQuery();
+            
+            while (rs.next()) {
+                produtos.add(ProductMapper.toEntity(rs));
+            }
+            
+            return produtos;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return produtos;
+        }
+    }
+    
     public int delete(int id) {
         String sql = "DELETE FROM produto WHERE produto.id = ?;";
         PreparedStatement statement = null;
